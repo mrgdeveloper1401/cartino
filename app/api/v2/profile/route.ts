@@ -1,6 +1,5 @@
 // app/api/v1/profile
 import { V2_BASE_URL, response } from "@/utils/config";
-import { cookies } from "next/headers";
 import { NextRequest } from "next/server";
 
 const REQ_URL = `${V2_BASE_URL}/auth/profile/`;
@@ -8,8 +7,8 @@ const REQ_URL = `${V2_BASE_URL}/auth/profile/`;
 export async function GET(req: NextRequest) {
   try {
     // check login
-    const cookieStore = await cookies();
-    const token = cookieStore.get("token")?.value;
+    const token = req.headers.get("Authorization");
+    
     if (!token) {
       return response.json(
         {
@@ -27,7 +26,7 @@ export async function GET(req: NextRequest) {
       method: "GET",
       headers: {
         "Content-type": "application/json",
-        'Authorization': `Bearer ${token}`,
+        'Authorization': token,
       },
     });
     const data = await res.json();

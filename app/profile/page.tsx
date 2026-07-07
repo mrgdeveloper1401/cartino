@@ -20,7 +20,10 @@ const profilePage = async () => {
 
   const res = await fetch('http://localhost:3000/api/v2/profile/', {
     method: "GET",
-    headers: { "Content-type": "application/json", Cookie: `token=${token}` },
+    headers: { 
+      "Content-type": "application/json",  
+      "Authorization": `Bearer ${token}`
+    },
   });
 
   if (!res.ok) {

@@ -26,7 +26,7 @@ async function getShopData(): Promise<ApiResponse | null> {
     const res = await fetch(reqUrl, {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
         "Content-Type": "application/json",
       },
     });
