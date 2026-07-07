@@ -1,4 +1,5 @@
 import SeasonsPage from "@/components/flashcards/SeasonsPage";
+import { APP_URL } from "@/utils/config";
 import { cookies } from "next/headers";
 
 async function getSeasons(classId: string) {
@@ -6,8 +7,12 @@ async function getSeasons(classId: string) {
     const cookieStore = await cookies();
     const token = cookieStore.get("token")?.value;
 
+    const appDevUrl = `http://localhost:3000/api/v2/linter/${classId}/season`
+    const appProdUrl = `${APP_URL}/api/v2/linter/${classId}/season`
+    const reqUrl = process.env.NODE_ENV === 'development' ? appDevUrl : appProdUrl;
+
     const response = await fetch(
-      `http://localhost:3000/api/v2/linter/${classId}/season`,
+      reqUrl,
       {
         headers: {
           'Authorization': `Bearer ${token}`,

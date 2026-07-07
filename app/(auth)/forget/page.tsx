@@ -1,5 +1,6 @@
 // app/(auth)/forgot
 import { ForgetPasswordForm } from "@/components/auth/ForgetPassword";
+import { PROD_JWT_URL } from "@/utils/config";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -12,7 +13,7 @@ const forgetPassword = async () => {
   };
   if (token) {
     // check token is valid
-    const res = await fetch("http://localhost:3000/api/v1/jwt", {
+    const res = await fetch(PROD_JWT_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(reqBody),

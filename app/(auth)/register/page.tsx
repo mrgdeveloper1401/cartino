@@ -1,4 +1,5 @@
 import { RegisterForm } from "@/components/auth/RegisterForm";
+import { PROD_JWT_URL } from "@/utils/config";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -11,7 +12,7 @@ export default async function RegisterPage() {
   };
   if (token) {
     // check token is valid
-    const res = await fetch("http://localhost:3000/api/v1/jwt", {
+    const res = await fetch(PROD_JWT_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(reqBody),

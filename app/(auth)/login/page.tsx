@@ -1,4 +1,5 @@
 import { LoginForm } from "@/components/auth/LoginForm";
+import { PROD_JWT_URL } from "@/utils/config";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -9,7 +10,8 @@ const loginPage = async () => {
     token: token,
   };
   if (token) {
-    const req = await fetch("http://localhost:3000/api/v1/jwt", {
+    const reqUrl = PROD_JWT_URL
+    const req = await fetch(reqUrl, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(reqBody),

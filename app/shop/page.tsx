@@ -1,5 +1,6 @@
 // app/shop/page.tsx
 import ShopPage from "@/components/shop/ShopPage";
+import { APP_URL } from "@/utils/config";
 import { cookies } from "next/headers";
 
 interface LinterClass {
@@ -22,11 +23,15 @@ async function getShopData(): Promise<ApiResponse | null> {
     const cookieStore = await cookies();
     const token = cookieStore.get("token")?.value;
 
-    const reqUrl = "http://localhost:3000/api/v2/shop/";
+    const reqDevUrl = "http://localhost:3000/api/v2/shop/";
+    const reqProdUrl = `${APP_URL}/api/v2/shop`;
+    const reqUrl =
+      process.env.NODE_ENV === "development" ? reqDevUrl : reqProdUrl;
+
     const res = await fetch(reqUrl, {
       method: "GET",
       headers: {
-        'Authorization': `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
     });

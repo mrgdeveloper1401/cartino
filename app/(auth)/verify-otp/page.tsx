@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { VerifyOtpForm } from "@/components/auth/VerifyOtpForm";
+import { PROD_JWT_URL } from "@/utils/config";
 
 export default async function VerifyOtpPage() {
   // check validate token
@@ -11,7 +12,7 @@ export default async function VerifyOtpPage() {
   };
   if (token) {
     // check token is valid
-    const res = await fetch("http://localhost:3000/api/v1/jwt", {
+    const res = await fetch(PROD_JWT_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(reqBody),

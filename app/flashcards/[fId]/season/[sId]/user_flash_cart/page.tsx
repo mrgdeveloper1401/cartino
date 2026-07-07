@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import Link from "next/link";
 import FlashcardsClient from "@/components/flashcards/FlashcardsClient";
+import { APP_URL } from "@/utils/config";
 
 interface Flashcard {
   id: number;
@@ -34,8 +35,12 @@ async function getFlashcards(
 
     const queryString = params.toString() ? `?${params.toString()}` : "";
 
+    const reqDevUrl = `http://localhost:3000/api/v2/linter/${classId}/season/${seasonId}/user_flash_cart${queryString}`
+    const reqProdUrl = `${APP_URL}/api/v2/linter/${classId}/season/${seasonId}/user_flash_cart${queryString}`
+    const reqUrl = process.env.NODE_ENV === 'development' ? reqDevUrl : reqProdUrl;
+
     const res = await fetch(
-      `http://localhost:3000/api/v2/linter/${classId}/season/${seasonId}/user_flash_cart${queryString}`,
+      reqUrl,
       {
         headers: { 'Authorization': `Bearer ${token}` },
       }

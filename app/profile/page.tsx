@@ -1,5 +1,6 @@
 // app/profile/page.tsx
 import ProfilePage from "@/components/auth/Profile";
+import { APP_URL } from "@/utils/config";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -18,11 +19,16 @@ const profilePage = async () => {
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
 
-  const res = await fetch('http://localhost:3000/api/v2/profile/', {
+  const reqDevUrl = "http://localhost:3000/api/v2/profile/";
+  const reqProdUrl = `${APP_URL}/api/v2/profile`;
+  const reqUrl =
+    process.env.NODE_ENV === "development" ? reqDevUrl : reqProdUrl;
+
+  const res = await fetch(reqUrl, {
     method: "GET",
-    headers: { 
-      "Content-type": "application/json",  
-      "Authorization": `Bearer ${token}`
+    headers: {
+      "Content-type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
   });
 
@@ -31,9 +37,9 @@ const profilePage = async () => {
   }
 
   const result = await res.json();
-  
+
   const userData: UserData = result.data;
-  
+
   return <ProfilePage user={userData}></ProfilePage>;
 };
 
