@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glassmorphism Login Form</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+      overflow: hidden;
+    }
+
+    .background-shapes {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+    .shape {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.6;
+    }
+
+    .shape-1 {
+      width: 300px;
+      height: 300px;
+      background: #e94560;
+      top: -150px;
+      left: -100px;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .shape-2 {
+      width: 400px;
+      height: 400px;
+      background: #533483;
+      bottom: -200px;
+      right: -100px;
+      animation: float 8s ease-in-out infinite reverse;
+    }
+
+    .shape-3 {
+      width: 200px;
+      height: 200px;
+      background: #0f3460;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: pulse 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-30px); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.2); }
+    }
+
+    .login-container {
+      position: relative;
+      z-index: 1;
+      width: 400px;
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+    }
+
+    .login-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .login-header h2 {
+      color: #fff;
+      font-size: 2em;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .login-header p {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.9em;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 15px 45px 15px 15px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      color: #fff;
+      font-size: 1em;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .input-group input::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .input-group input:focus {
+      border-color: #e94560;
+      box-shadow: 0 0 10px rgba(233, 69, 96, 0.3);
+    }
+
+    .input-group i {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .remember-forgot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .remember-forgot label {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.9em;
+      cursor: pointer;
+    }
+
+    .remember-forgot a {
+      color: #e94560;
+      text-decoration: none;
+      font-size: 0.9em;
+    }
+
+    .remember-forgot a:hover {
+      text-decoration: underline;
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(45deg, #e94560, #533483);
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 1.1em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(233, 69, 96, 0.4);
+    }
+
+    .social-login {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .social-login p {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.9em;
+      margin-bottom: 15px;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .social-icons a {
+      width: 45px;
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      color: #fff;
+      font-size: 1.2em;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .social-icons a:hover {
+      background: #e94560;
+      transform: translateY(-3px);
+    }
+
+    .signup-link {
+      text-align: center;
+      margin-top: 20px;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.9em;
+    }
+
+    .signup-link a {
+      color: #e94560;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .signup-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="background-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+  </div>
+
+  <div class="login-container">
+    <div class="login-header">
+      <h2>Welcome Back</h2>
+      <p>Please sign in to your account</p>
+    </div>
+
+    <form id="loginForm">
+      <div class="input-group">
+        <input type="email" placeholder="Email Address" required>
+        <i class="fas fa-envelope"></i>
+      </div>
+
+      <div class="input-group">
+        <input type="password" placeholder="Password" required>
+        <i class="fas fa-lock"></i>
+      </div>
+
+      <div class="remember-forgot">
+        <label><input type="checkbox"> Remember me</label>
+        <a href="#">Forgot Password?</a>
+      </div>
+
+      <button type="submit" class="login-btn">Sign In</button>
+    </form>
+
+    <div class="social-login">
+      <p>Or continue with</p>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-google"></i></a>
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-github"></i></a>
+      </div>
+    </div>
+
+    <div class="signup-link">
+      Don't have an account? <a href="#">Sign Up</a>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const email = this.querySelector('input[type="email"]').value;
+      const password = this.querySelector('input[type="password"]').value;
+      
+      // Add your authentication logic here
+      console.log('Login attempt:', { email, password });
+      
+      // Show success message
+      alert('Login successful!');
+    });
+
+    // Add floating animation to shapes
+    const shapes = document.querySelectorAll('.shape');
+    shapes.forEach((shape, index) => {
+      shape.addEventListener('mouseenter', () => {
+        shape.style.transform = `translateY(-20px)`;
+      });
+      shape.addEventListener('mouseleave', () => {
+        shape.style.transform = 'translateY(0px)';
+      });
+    });
+  </script>
+</body>
+</html>
