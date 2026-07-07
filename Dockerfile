@@ -26,6 +26,7 @@ RUN addgroup -S nextjs && adduser -S nextjs -G nextjs
 
 # فایل‌های لازم runtime
 COPY --from=builder /app/public ./public
+COPY --from=deps /app/package.json /app/package.json
 COPY --from=builder /app/.next/ ./app/.next
 
 USER nextjs
