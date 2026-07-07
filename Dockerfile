@@ -26,9 +26,8 @@ RUN addgroup -S nextjs && adduser -S nextjs -G nextjs
 
 # فایل‌های لازم runtime
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
+COPY --from=builder /app/.next/ ./app/.next
 
 USER nextjs
 EXPOSE 3000
-CMD ["node", "server.js"]
+ENTRYPOINT ["npm", "run", "start"]
