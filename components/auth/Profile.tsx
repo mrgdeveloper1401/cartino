@@ -30,9 +30,12 @@ export default function ProfilePage({ user }: { user: User }) {
   const handleLogout = async () => {
     setIsLoading(true);
     try {
-      fetch("/api/v2/auth/logout", {
+      const res = await fetch("/api/v2/auth/logout", {
         method: "POST",
       });
+      if (!res.ok) {
+        return;
+      }
       router.replace("/login");
     } catch (error) {
       console.error("Logout error:", error);
