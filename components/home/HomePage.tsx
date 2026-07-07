@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { BookOpen, Layers, Home, Search, Store, User } from "lucide-react";
+import { BookOpen, Layers, Home, Store, User } from "lucide-react";
 
 export default function HomePage() {
   return (

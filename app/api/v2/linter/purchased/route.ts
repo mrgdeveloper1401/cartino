@@ -17,10 +17,9 @@ export async function GET(request: NextRequest) {
   try {
     const responseData = await fetch(REQ_URL, {
       headers: {
-        Authorization: token,
+        'Authorization': token,
         "Content-Type": "application/json",
       },
-      cache: "no-store",
     });
 
     if (!responseData.ok) {

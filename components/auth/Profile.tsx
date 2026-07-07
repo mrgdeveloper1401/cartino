@@ -34,7 +34,6 @@ export default function ProfilePage({ user }: { user: User }) {
         method: "POST",
       });
       router.replace("/login");
-      router.refresh();
     } catch (error) {
       console.error("Logout error:", error);
     } finally {
@@ -43,7 +42,6 @@ export default function ProfilePage({ user }: { user: User }) {
   };
   const homePageRouter = () => {
     router.replace("/");
-    router.refresh();
   };
 
   // استخراج اولین حرف نام برای آواتار

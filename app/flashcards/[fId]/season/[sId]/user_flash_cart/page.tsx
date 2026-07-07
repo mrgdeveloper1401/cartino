@@ -37,8 +37,7 @@ async function getFlashcards(
     const res = await fetch(
       `http://localhost:3000/api/v2/linter/${classId}/season/${seasonId}/user_flash_cart${queryString}`,
       {
-        headers: { Authorization: `Bearer ${token}` },
-        cache: "no-store",
+        headers: { 'Authorization': `Bearer ${token}` },
       }
     );
 

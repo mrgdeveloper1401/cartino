@@ -34,8 +34,7 @@ export function RegisterForm() {
   async function onSubmit(data: RegisterFormValues) {
     try {
       await axios.post("/api/v2/auth/register", data);
-      router.push("/");
-      router.refresh();
+      router.replace("/");
     } catch (err) {
       form.setError("confirm_password", {
         message: axios.isAxiosError(err)

@@ -5,7 +5,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, type LoginFormValues } from "@/lib/validations/auth";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-import { Checkbox } from "../ui/checkbox";
 import {
   Form,
   FormField,

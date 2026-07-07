@@ -27,7 +27,7 @@ export async function GET(
     const upstream = await fetch(REQ_URL, {
       headers: {
         "content-type": "application/json",
-        Authorization: token,
+        'Authorization': token,
       },
     });
 

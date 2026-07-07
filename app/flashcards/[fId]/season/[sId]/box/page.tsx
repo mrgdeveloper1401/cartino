@@ -15,9 +15,8 @@ async function getBoxes(classId: string, seasonId: string): Promise<Box[]> {
       `http://localhost:3000/api/v2/linter/${classId}/season/${seasonId}/box`,
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          'Authorization': `Bearer ${token}`,
         },
-        cache: "no-store",
       }
     );
 

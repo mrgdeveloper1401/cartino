@@ -8,7 +8,7 @@ async function getPurchasedClasses() {
 
     const response = await fetch(
       "http://localhost:3000/api/v2/linter/purchased",
-      { headers: { Authorization: `Bearer ${token}` }, cache: "no-store" }
+      { headers: { 'Authorization': `Bearer ${token}` } }
     );
 
     if (!response.ok) return [];

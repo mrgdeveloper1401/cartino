@@ -10,9 +10,8 @@ async function getSeasons(classId: string) {
       `http://localhost:3000/api/v2/linter/${classId}/season`,
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          'Authorization': `Bearer ${token}`,
         },
-        cache: "no-store",
       }
     );
 

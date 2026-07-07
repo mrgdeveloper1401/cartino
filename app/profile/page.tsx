@@ -13,14 +13,12 @@ interface UserData {
   count_flash_cart: number;
 }
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "http://localhost:3000";
-
 const profilePage = async () => {
   // check token
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
 
-  const res = await fetch(`${baseUrl}/api/v2/profile/`, {
+  const res = await fetch('http://localhost:3000/api/v2/profile/', {
     method: "GET",
     headers: { "Content-type": "application/json", Cookie: `token=${token}` },
   });
