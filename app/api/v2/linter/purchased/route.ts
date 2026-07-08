@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
   try {
     const responseData = await fetch(REQ_URL, {
       headers: {
-        'Authorization': token,
+        Authorization: token,
         "Content-Type": "application/json",
       },
     });
@@ -33,7 +33,11 @@ export async function GET(request: NextRequest) {
     return response.json(data);
   } catch (error) {
     return response.json(
-      { success: false, error: "Internal server error" },
+      {
+        success: false,
+        message: "Internal server error",
+        detail: (error as Error).message || "خطای سرور",
+      },
       { status: 500 }
     );
   }

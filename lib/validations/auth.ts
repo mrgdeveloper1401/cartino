@@ -13,11 +13,11 @@ export const registerSchema = z
   .object({
     phone_number: z
       .string()
-      .min(1, "شماره تلفن الزامی است")
+      .min(1, "شماره تلفن الزامی است").max(11, "شماره تلفن باید ۱۱ رقمی باشد")
       .regex(/^09\d{9}$/, "شماره موبایل معتبر نیست"),
     password: z.string().min(6, "رمز عبور باید حداقل ۶ کاراکتر باشد"),
-    confirm_password: z.string().min(1, "تکرار رمز عبور الزامی است"),
-    melli_code: z.string().min(1, "کد ملی الزامی است"),
+    confirm_password: z.string().min(6, "تکرار رمز عبور الزامی است و رمز عبور حداقل ۶ کاراکتر باشد"),
+    melli_code: z.string().min(1, "کد ملی الزامی است").max(10, "کد ملی حداکثر ۱۰ کاراکتر هست"),
     first_name: z.string(),
     last_name: z.string(),
   })

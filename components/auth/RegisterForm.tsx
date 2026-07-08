@@ -36,9 +36,9 @@ export function RegisterForm() {
       await axios.post("/api/v2/auth/register", data);
       router.replace("/");
     } catch (err) {
-      form.setError("confirm_password", {
+      form.setError("phone_number", {
         message: axios.isAxiosError(err)
-          ? err.response?.data?.message ?? "خطا در ثبت‌نام"
+          ? err.response?.data?.detail ?? "خطا در ثبت‌نام"
           : "خطا در ثبت‌نام",
       });
     }
@@ -159,7 +159,7 @@ export function RegisterForm() {
                     <FormControl>
                       <Input
                         type="password"
-                        placeholder="حداقل 8 کاراکتر"
+                        placeholder="حداقل ۶ کاراکتر"
                         className="bg-white/5 border-white/20 text-white placeholder:text-gray-400 focus:border-purple-400"
                         {...field}
                       />

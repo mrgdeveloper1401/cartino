@@ -3,15 +3,24 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { PROD_JWT_URL } from "./utils/config";
 
-const REQ_URL = PROD_JWT_URL
+const isDev = process.env.NODE_ENV === "development";
+const DEV_REQ_URL = "http://localhost:8000/api/jwt/verify/";
+const PROD_REQ_URL = PROD_JWT_URL;
+const REQ_URL = isDev ? DEV_REQ_URL : PROD_REQ_URL;
 
 export async function proxy(request: NextRequest) {
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
-  
+
   const { pathname } = request.nextUrl;
 
-  const requestPath = ["/", "/profile", "/shop", '/flashcards', '/flashcards/:path*'];
+  const requestPath = [
+    "/",
+    "/profile",
+    "/shop",
+    "/flashcards",
+    "/flashcards/:path*",
+  ];
   if (!token && requestPath.includes(pathname)) {
     return NextResponse.redirect(new URL("/login", request.url));
   } else {
@@ -27,12 +36,11 @@ export async function proxy(request: NextRequest) {
     if (!response.ok) {
       return NextResponse.redirect(new URL("/login", request.url));
     }
-    
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/", "/profile", "/shop", '/flashcards', '/flashcards/:path*'],
+  matcher: ["/", "/profile", "/shop", "/flashcards", "/flashcards/:path*"],
 };

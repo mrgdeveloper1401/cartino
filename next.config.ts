@@ -17,6 +17,10 @@ const nextConfig: NextConfig = {
     minimumCacheTTL: 60 * 60 * 24, // ۲۴ ساعت
   },
   output: "standalone",
+
+  // typescript: {
+  //   ignoreBuildErrors: true // disabled type checking when run command npm run build
+  // }
 };
 
 export default nextConfig;

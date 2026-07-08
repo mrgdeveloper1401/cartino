@@ -52,6 +52,7 @@ export async function GET(req: NextRequest) {
       {
         success: false,
         message: "خطای سرور",
+        detail: (error as Error).message || 'خطای سرور'
       },
       {
         status: 500,

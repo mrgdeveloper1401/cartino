@@ -3,7 +3,10 @@ import { cookies } from "next/headers";
 import { V2_BASE_URL, response } from "@/utils/config";
 import { registerSchema } from "@/lib/validations/auth";
 
-const REQ_URL = `${V2_BASE_URL}/auth/register/`;
+const isDev = process.env.NODE_ENV === "development";
+const PROD_REQ_URL = `${V2_BASE_URL}/auth/register/`;
+const DEV_REQ_URL = "http://localhost:8000/v2/auth/register/";
+const REQ_URL = isDev ? DEV_REQ_URL : PROD_REQ_URL;
 
 export async function POST(req: NextRequest) {
   try {
@@ -21,7 +24,7 @@ export async function POST(req: NextRequest) {
     }
 
     // validate request body
-    const validationResult = await registerSchema.safeParseAsync(body);
+    const validationResult = registerSchema.safeParse(body);
     if (!validationResult.success) {
       const error = validationResult.error.issues;
 
@@ -37,9 +40,6 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // The data has been validated.
-    // const validateData = validationResult.data;
-
     const upstream = await fetch(REQ_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -47,16 +47,9 @@ export async function POST(req: NextRequest) {
     });
     const responseData = await upstream.json();
     if (!upstream.ok) {
-      return response.json(
-        {
-          success: false,
-          message: responseData.message || "خطا در ثبت نام",
-          error: responseData.errors || responseData,
-        },
-        {
-          status: upstream.status,
-        }
-      );
+      return response.json(responseData, {
+        status: upstream.status,
+      });
     }
 
     // success

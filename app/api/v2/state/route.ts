@@ -1,7 +1,6 @@
 import { response } from "@/utils/config";
-import { NextRequest } from "next/server";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     const reqUrl = "https://api.gs-tools.ir/v1/auth/state";
     const upstream = await fetch(reqUrl, {

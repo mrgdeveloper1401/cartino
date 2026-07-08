@@ -10,6 +10,7 @@ import {
   FileText,
   HelpCircle,
 } from "lucide-react";
+import Link from "next/link";
 
 interface User {
   username: string;
@@ -113,8 +114,8 @@ export default function ProfilePage({ user }: { user: User }) {
         {/* Menu Grid */}
         <div className="grid grid-cols-2 gap-4">
           {/* کلاس‌های خریداری شده */}
-          <a
-            href="/profile/classes"
+          <Link
+            href="/flashcards"
             className="group bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 p-6 hover:bg-white/15 transition-all duration-300 shadow-lg hover:shadow-xl"
           >
             <div className="flex items-center gap-4">
@@ -130,7 +131,7 @@ export default function ProfilePage({ user }: { user: User }) {
                 </p>
               </div>
             </div>
-          </a>
+          </Link>
 
           {/* ویرایش پروفایل */}
           <a

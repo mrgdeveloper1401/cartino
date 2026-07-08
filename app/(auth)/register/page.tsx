@@ -18,7 +18,7 @@ export default async function RegisterPage() {
       body: JSON.stringify(reqBody),
     });
     if (res.ok) {
-      return redirect("/");
+      redirect("/");
     }
   }
   return <RegisterForm />;

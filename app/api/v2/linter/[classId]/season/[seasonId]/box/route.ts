@@ -1,4 +1,4 @@
-import { V1_BASE_URL, V2_BASE_URL, response } from "@/utils/config";
+import { V1_BASE_URL, response } from "@/utils/config";
 import { NextRequest } from "next/server";
 
 export async function GET(

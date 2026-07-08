@@ -5,7 +5,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { verifyOtp, VerifyOtpValue } from "@/lib/validations/auth";
-import Link from "next/link";
 
 interface VerifyOtpFormProps {
   otp_phone: string | undefined;

@@ -1,6 +1,6 @@
 // app/shop/page.tsx
 import ShopPage from "@/components/shop/ShopPage";
-import { APP_URL } from "@/utils/config";
+import { APP_URL, response } from "@/utils/config";
 import { cookies } from "next/headers";
 
 interface LinterClass {
