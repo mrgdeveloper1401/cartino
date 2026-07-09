@@ -81,7 +81,7 @@ export function LoginForm() {
                 name="phone"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-white">Phone</FormLabel>
+                    <FormLabel className="text-white">شماره تلفن</FormLabel>
                     <FormControl>
                       <Input
                         type="text"
@@ -101,7 +101,7 @@ export function LoginForm() {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-white">Password</FormLabel>
+                    <FormLabel className="text-white">رمزعبور</FormLabel>
                     <FormControl>
                       <Input
                         type="password"

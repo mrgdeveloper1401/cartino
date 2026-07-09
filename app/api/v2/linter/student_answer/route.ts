@@ -1,10 +1,12 @@
 // api/v2/linter/student_answer
 
-import { V2_BASE_URL, response } from "@/utils/config";
+import { V2_BASE_URL, isDev, response } from "@/utils/config";
 import { cookies } from "next/headers";
 import { NextRequest } from "next/server";
 
-const REQ_URL = `${V2_BASE_URL}/linter/student_answer`;
+const prodReqUrl = `${V2_BASE_URL}/linter/student_answer`;
+const devRequrl = "http://localhost:8000/v2/linter/student_answer";
+const reqUrl = isDev ? devRequrl : prodReqUrl;
 
 export async function POST(req: NextRequest) {
   try {
@@ -37,7 +39,7 @@ export async function POST(req: NextRequest) {
         }
       );
     }
-    const upstream = await fetch(REQ_URL, {
+    const upstream = await fetch(reqUrl, {
       method: "POST",
       headers: {
         "content-type": "application/json",

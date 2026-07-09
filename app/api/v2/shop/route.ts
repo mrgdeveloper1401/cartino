@@ -1,8 +1,10 @@
 //app/api/v2/shop/route.ts
-import { V2_BASE_URL, response } from "@/utils/config";
+import { V2_BASE_URL, isDev, response } from "@/utils/config";
 import { NextRequest } from "next/server";
 
-const REQ_URL = `${V2_BASE_URL}/linter/linter_class`;
+const prodReqUrl = `${V2_BASE_URL}/linter/linter_class`;
+const devReqUrl = "http://localhost:8000/v2/linter/linter_class";
+const reqUrl = isDev ? devReqUrl : prodReqUrl;
 
 export async function GET(req: NextRequest) {
   try {
@@ -21,11 +23,11 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    const upstream = await fetch(REQ_URL, {
+    const upstream = await fetch(reqUrl, {
       method: "GET",
       headers: {
         "Content-type": "application/json",
-        'Authorization': token,
+        Authorization: token,
       },
     });
     const data = await upstream.json();
@@ -52,7 +54,7 @@ export async function GET(req: NextRequest) {
       {
         success: false,
         message: "خطای سرور",
-        detail: (error as Error).message || 'خطای سرور'
+        detail: (error as Error).message || "خطای سرور",
       },
       {
         status: 500,

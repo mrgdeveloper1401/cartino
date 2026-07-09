@@ -1,9 +1,11 @@
 import { requestOtp } from "@/lib/validations/auth";
-import { V2_BASE_URL, response } from "@/utils/config";
+import { V2_BASE_URL, isDev, response } from "@/utils/config";
 import { cookies } from "next/headers";
 import { NextRequest } from "next/server";
 
-const REQ_URL = `${V2_BASE_URL}/auth/request_otp/`;
+const prodReqUrl = `${V2_BASE_URL}/auth/request_otp/`;
+const devReqUrl = "http://localhost:8000/v2/auth/request_otp/";
+const reqUrl = isDev ? devReqUrl : prodReqUrl;
 
 export async function POST(req: NextRequest) {
   try {
@@ -37,7 +39,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const upstream = await fetch(REQ_URL, {
+    const upstream = await fetch(reqUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
@@ -62,7 +64,7 @@ export async function POST(req: NextRequest) {
       maxAge: 120,
       httpOnly: true,
       sameSite: "lax",
-      secure: process.env.NODE_ENV === 'production',
+      secure: process.env.NODE_ENV === "production",
     });
     return response.json({
       success: true,

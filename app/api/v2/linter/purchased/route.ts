@@ -1,8 +1,10 @@
 // app/api/linter/purchased/route.ts
 import { NextRequest } from "next/server";
-import { V2_BASE_URL, response } from "@/utils/config";
+import { V2_BASE_URL, isDev, response } from "@/utils/config";
 
-const REQ_URL = `${V2_BASE_URL}/linter/class_purchase/`;
+const prodReqUrl = `${V2_BASE_URL}/linter/class_purchase/`;
+const devRequrl = "http://localhost:8000/v2/linter/class_purchase/";
+const reqUrl = isDev ? devRequrl : prodReqUrl;
 
 export async function GET(request: NextRequest) {
   const token = request.headers.get("Authorization");
@@ -15,7 +17,7 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const responseData = await fetch(REQ_URL, {
+    const responseData = await fetch(reqUrl, {
       headers: {
         Authorization: token,
         "Content-Type": "application/json",

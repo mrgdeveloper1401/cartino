@@ -1,14 +1,16 @@
 // app/api/v1/profile
-import { V2_BASE_URL, response } from "@/utils/config";
+import { V2_BASE_URL, isDev, response } from "@/utils/config";
 import { NextRequest } from "next/server";
 
-const REQ_URL = `${V2_BASE_URL}/auth/profile/`;
+const prodReqUrl = `${V2_BASE_URL}/auth/profile/`;
+const devReqUrl = `http://localhost:8000/v2/auth/profile/`;
+const reqUrl = isDev ? devReqUrl : prodReqUrl;
 
 export async function GET(req: NextRequest) {
   try {
     // check login
     const token = req.headers.get("Authorization");
-    
+
     if (!token) {
       return response.json(
         {
@@ -22,7 +24,7 @@ export async function GET(req: NextRequest) {
     }
 
     // request profile
-    const res = await fetch(REQ_URL, {
+    const res = await fetch(reqUrl, {
       method: "GET",
       headers: {
         "Content-type": "application/json",

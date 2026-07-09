@@ -1,9 +1,11 @@
 import { cookies } from "next/headers";
 import { NextRequest } from "next/server";
-import { V2_BASE_URL, response } from "@/utils/config";
+import { V2_BASE_URL, isDev, response } from "@/utils/config";
 import { verifyOtp } from "@/lib/validations/auth";
 
-const REQ_URL = `${V2_BASE_URL}/auth/verify_otp/`;
+const prodReqUrl = `${V2_BASE_URL}/auth/verify_otp/`;
+const devReqUrl = "http://localhost:8000/v2/auth/verify_otp/";
+const reqUrl = isDev ? devReqUrl : prodReqUrl;
 
 export async function POST(req: NextRequest) {
   try {
@@ -48,10 +50,10 @@ export async function POST(req: NextRequest) {
 
     const newBody = {
       phone_number: phone,
-      code: validationResult.data.code
+      code: validationResult.data.code,
     };
 
-    const upstream = await fetch(REQ_URL, {
+    const upstream = await fetch(reqUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newBody),
@@ -82,7 +84,7 @@ export async function POST(req: NextRequest) {
       {
         success: false,
         message: "خطای سرور",
-        detail: (error as Error).message || 'خطای سرور'
+        detail: (error as Error).message || "خطای سرور",
       },
       {
         status: 500,

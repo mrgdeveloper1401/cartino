@@ -1,9 +1,24 @@
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import "./globals.css";
-import { Geist } from "next/font/google";
 import { cn } from "@/lib/utils";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const dana = localFont({
+  src: [
+    {
+      path: "../public/font/DanaFaNum-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/font/DanaFaNum-DemiBold.woff2",
+      weight: "600",
+      style: "normal",
+    },
+  ],
+  variable: "--font-dana",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "cartino",
@@ -17,10 +32,13 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
-      className={cn("h-full", "antialiased", "font-sans", geist.variable)}
+      lang="fa"
+      dir="rtl"
+      className={cn("h-full", "antialiased")}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className={cn("min-h-full flex flex-col", dana.className)}>
+        {children}
+      </body>
     </html>
   );
 }

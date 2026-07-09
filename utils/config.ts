@@ -11,6 +11,9 @@ export const V1_BASE_URL =
   process.env.V1_BASE_URL ||
   "https://api.cartinoapp.ir/v1";
 
-export const PROD_JWT_URL = process.env.PROD_JWT_URL || 'https://api.cartinoapp.ir/api/jwt/verify/'
-export const APP_URL = process.env.APP_URL || 'https://www.cartinoapp.ir'
+export const PROD_JWT_URL =
+  process.env.PROD_JWT_URL || "https://api.cartinoapp.ir/api/jwt/verify/";
+export const APP_URL = process.env.APP_URL || "https://www.cartinoapp.ir";
+export const isDev = process.env.NODE_ENV === "development";
+// export const isDev = false;
 export const response = NextResponse;

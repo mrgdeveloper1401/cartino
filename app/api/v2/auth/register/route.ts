@@ -1,12 +1,11 @@
 import { NextRequest } from "next/server";
 import { cookies } from "next/headers";
-import { V2_BASE_URL, response } from "@/utils/config";
+import { V2_BASE_URL, isDev, response } from "@/utils/config";
 import { registerSchema } from "@/lib/validations/auth";
 
-const isDev = process.env.NODE_ENV === "development";
-const PROD_REQ_URL = `${V2_BASE_URL}/auth/register/`;
-const DEV_REQ_URL = "http://localhost:8000/v2/auth/register/";
-const REQ_URL = isDev ? DEV_REQ_URL : PROD_REQ_URL;
+const prodReqUrl = `${V2_BASE_URL}/auth/register/`;
+const devReqUrl = "http://localhost:8000/v2/auth/register/";
+const reqUrl = isDev ? devReqUrl : prodReqUrl;
 
 export async function POST(req: NextRequest) {
   try {
@@ -40,7 +39,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const upstream = await fetch(REQ_URL, {
+    const upstream = await fetch(reqUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),

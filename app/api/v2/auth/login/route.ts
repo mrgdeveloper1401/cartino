@@ -1,9 +1,11 @@
 import { cookies } from "next/headers";
 import { NextRequest } from "next/server";
-import { V2_BASE_URL, response } from "@/utils/config";
+import { V2_BASE_URL, isDev, response } from "@/utils/config";
 import { loginSchema } from "@/lib/validations/auth";
 
-const REQ_URL = `${V2_BASE_URL}/auth/login_by_phone_password/`;
+const prodReqUrl = `${V2_BASE_URL}/auth/login_by_phone_password/`;
+const devReqUrl = "http://localhost:8000/v2/auth/login_by_phone_password/";
+const reqUrl = isDev ? devReqUrl : prodReqUrl;
 
 export async function POST(req: NextRequest) {
   try {
@@ -26,7 +28,7 @@ export async function POST(req: NextRequest) {
     const validateData = loginSchema.parse(body);
 
     // request url backend
-    const upstream = await fetch(REQ_URL, {
+    const upstream = await fetch(reqUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(validateData),

@@ -1,9 +1,8 @@
 import { LoginForm } from "@/components/auth/LoginForm";
-import { PROD_JWT_URL } from "@/utils/config";
+import { PROD_JWT_URL, isDev } from "@/utils/config";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-const isDev = process.env.NODE_ENV === "development";
 const devReqUrl = "http://localhost:8000/api/jwt/verify/";
 const prodReqUrl = PROD_JWT_URL;
 const reqUrl = isDev ? devReqUrl : prodReqUrl;

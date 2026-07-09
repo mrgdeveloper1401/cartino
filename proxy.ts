@@ -1,12 +1,11 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { PROD_JWT_URL } from "./utils/config";
+import { PROD_JWT_URL, isDev } from "./utils/config";
 
-const isDev = process.env.NODE_ENV === "development";
-const DEV_REQ_URL = "http://localhost:8000/api/jwt/verify/";
-const PROD_REQ_URL = PROD_JWT_URL;
-const REQ_URL = isDev ? DEV_REQ_URL : PROD_REQ_URL;
+const devReqUrl = "http://localhost:8000/api/jwt/verify/";
+const prodReqUrl = PROD_JWT_URL;
+const reqUrl = isDev ? devReqUrl : prodReqUrl;
 
 export async function proxy(request: NextRequest) {
   const cookieStore = await cookies();
@@ -28,7 +27,7 @@ export async function proxy(request: NextRequest) {
     const reqBody = {
       token: token,
     };
-    const response = await fetch(REQ_URL, {
+    const response = await fetch(reqUrl, {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify(reqBody),

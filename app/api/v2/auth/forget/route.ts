@@ -1,8 +1,10 @@
 import { forgetPassword } from "@/lib/validations/auth";
-import { V2_BASE_URL, response } from "@/utils/config";
+import { V2_BASE_URL, isDev, response } from "@/utils/config";
 import { NextRequest } from "next/server";
 
-const REQ_URL = `${V2_BASE_URL}/auth/request_forget_password/`;
+const prodReqUrl = `${V2_BASE_URL}/auth/request_forget_password/`;
+const devReqUrl = 'http://localhost:8000/v2/auth/request_forget_password/'
+const reqUrl = isDev ? devReqUrl : prodReqUrl;
 
 export async function POST(req: NextRequest) {
   try {
@@ -35,7 +37,7 @@ export async function POST(req: NextRequest) {
     const reqBody = {
       phone_number: validateData.data.phone_number,
     };
-    const upstream = await fetch(REQ_URL, {
+    const upstream = await fetch(reqUrl, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(reqBody),

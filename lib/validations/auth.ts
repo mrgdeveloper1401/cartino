@@ -13,11 +13,17 @@ export const registerSchema = z
   .object({
     phone_number: z
       .string()
-      .min(1, "شماره تلفن الزامی است").max(11, "شماره تلفن باید ۱۱ رقمی باشد")
+      .min(1, "شماره تلفن الزامی است")
+      .max(11, "شماره تلفن باید ۱۱ رقمی باشد")
       .regex(/^09\d{9}$/, "شماره موبایل معتبر نیست"),
     password: z.string().min(6, "رمز عبور باید حداقل ۶ کاراکتر باشد"),
-    confirm_password: z.string().min(6, "تکرار رمز عبور الزامی است و رمز عبور حداقل ۶ کاراکتر باشد"),
-    melli_code: z.string().min(1, "کد ملی الزامی است").max(10, "کد ملی حداکثر ۱۰ کاراکتر هست"),
+    confirm_password: z
+      .string()
+      .min(6, "تکرار رمز عبور الزامی است و رمز عبور حداقل ۶ کاراکتر باشد"),
+    melli_code: z
+      .string()
+      .min(1, "کد ملی الزامی است")
+      .max(10, "کد ملی حداکثر ۱۰ کاراکتر هست"),
     first_name: z.string(),
     last_name: z.string(),
   })
@@ -50,7 +56,8 @@ export const jwtToken = z.object({
 export const forgetPassword = z.object({
   phone_number: z
     .string()
-    .min(11, "شماره تلفن یازده رقمی باید باشد")
+    .max(11, "شماره تلفن یازده رقمی باید باشد")
+    .min(1, "شماره نلفن الزامی میباشد")
     .regex(
       /^09\d{9}$/,
       "شماره موبایل معتبر نیست و شماره تلفن یازده رقمی و با ۰۹ شروع میشود"

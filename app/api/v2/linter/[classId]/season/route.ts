@@ -1,4 +1,4 @@
-import { V2_BASE_URL, response } from "@/utils/config";
+import { V2_BASE_URL, isDev, response } from "@/utils/config";
 import { NextRequest } from "next/server";
 
 export async function GET(
@@ -22,12 +22,14 @@ export async function GET(
       );
     }
 
-    const REQ_URL = `${V2_BASE_URL}/linter/class_purchase/${classId}/season/`;
+    const prodReqUrl = `${V2_BASE_URL}/linter/class_purchase/${classId}/season/`;
+    const devRequrl = `http://localhost:8000/v2/linter/class_purchase/${classId}/season/`;
+    const reqUrl = isDev ? devRequrl : prodReqUrl;
 
-    const upstream = await fetch(REQ_URL, {
+    const upstream = await fetch(reqUrl, {
       headers: {
         "content-type": "application/json",
-        'Authorization': token,
+        Authorization: token,
       },
     });
 

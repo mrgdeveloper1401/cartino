@@ -1,5 +1,5 @@
 import BoxesPage from "@/components/flashcards/BoxesPage";
-import { APP_URL } from "@/utils/config";
+import { APP_URL, isDev } from "@/utils/config";
 import { cookies } from "next/headers";
 
 interface Box {
@@ -13,13 +13,12 @@ async function getBoxes(classId: string, seasonId: string): Promise<Box[]> {
     const token = cookieStore.get("token")?.value;
 
     const reqDevUrl = `http://localhost:3000/api/v2/linter/${classId}/season/${seasonId}/box`;
-    const reqProdUrl = `${APP_URL}/api/v2/linter/${classId}/season/${seasonId}/box`;
-    const reqUrl =
-      process.env.NODE_ENV === "development" ? reqDevUrl : reqProdUrl;
+    const prodReqUrl = `${APP_URL}/api/v2/linter/${classId}/season/${seasonId}/box`;
+    const reqUrl = isDev ? reqDevUrl : prodReqUrl;
 
     const res = await fetch(reqUrl, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
       },
     });
 
