@@ -32,7 +32,7 @@ export function RequestOtpForm() {
       const result = await res.json();
 
       if (!res.ok || !result.success) {
-        setServerError(result.message || "خطا در ارسال کد");
+        setServerError(result.detail || result.message || "خطا در ارسال کد");
         return;
       }
 
