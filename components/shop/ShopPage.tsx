@@ -12,6 +12,9 @@ interface LinterClass {
   study_field: string;
   author_name: string;
   cover_image: string;
+  is_free: boolean;
+  price: number | null;
+  new_price: number | number;
 }
 
 interface ApiResponse {
@@ -49,10 +52,18 @@ export default function ShopPage({
       <div className="absolute top-40 -right-24 h-72 w-72 animate-pulse rounded-full bg-pink-500/20 blur-3xl" />
 
       {/* هدر */}
-      <header className="relative z-10 px-6 pb-6 pt-14" dir="rtl">
+      <header
+        className="relative z-10 px-6 pb-6 pt-14 flex gap-10 w-100"
+        dir="rtl"
+      >
         <h1 className="text-3xl font-black tracking-wide text-white">
           فروشگاه
         </h1>
+
+        <Link href={"/"} className="text-white text-xl underline">
+          بازگشت به صفحه اصلی
+        </Link>
+
         <p className="mt-2 text-sm font-medium text-white/70">
           {data.count} کلاس آموزشی
         </p>
@@ -93,6 +104,28 @@ export default function ShopPage({
                 <div className="flex items-center gap-2 text-xs text-white/60">
                   <span>👤</span>
                   <span>{item.author_name}</span>
+                </div>
+
+                {/* price */}
+                <div className="flex items-center gap-2 text-sm">
+                  {item.is_free ? (
+                    <span className="rounded-full bg-green-500/20 px-3 py-1 text-xs font-bold text-green-400">
+                      رایگان
+                    </span>
+                  ) : item.new_price ? (
+                    <>
+                      <span className="font-bold text-white">
+                        {item.new_price.toLocaleString("fa-IR")} تومان
+                      </span>
+                      <span className="text-white/40 line-through">
+                        {item.price?.toLocaleString("fa-IR")} تومان
+                      </span>
+                    </>
+                  ) : (
+                    <span className="font-bold text-white">
+                      {item.price?.toLocaleString("fa-IR")} تومان
+                    </span>
+                  )}
                 </div>
               </div>
 

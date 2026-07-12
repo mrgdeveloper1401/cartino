@@ -2,6 +2,7 @@
 import ShopPage from "@/components/shop/ShopPage";
 import { APP_URL, isDev } from "@/utils/config";
 import { cookies } from "next/headers";
+import Link from "next/link";
 
 interface LinterClass {
   id: number;
@@ -9,6 +10,9 @@ interface LinterClass {
   study_field: string;
   author_name: string;
   cover_image: string;
+  is_free: boolean;
+  price: number | null;
+  new_price: number | number;
 }
 
 interface ApiResponse {
@@ -30,7 +34,7 @@ async function getShopData(): Promise<ApiResponse | null> {
     const res = await fetch(reqUrl, {
       method: "GET",
       headers: {
-        'Authorization': `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
     });
@@ -56,6 +60,11 @@ export default async function Page() {
     return (
       <div className="flex min-h-screen items-center justify-center bg-slate-900">
         <p className="text-white">خطا در دریافت اطلاعات یا نیاز به ورود مجدد</p>
+
+        <Link href={"/"} className="text-white text-xl mt-5 underline">
+          بازگشت به صفحه اصلی
+        </Link>
+
       </div>
     );
   }
