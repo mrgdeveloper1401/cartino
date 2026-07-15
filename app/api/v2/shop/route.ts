@@ -2,8 +2,8 @@
 import { V2_BASE_URL, isDev, response } from "@/utils/config";
 import { NextRequest } from "next/server";
 
-const prodReqUrl = `${V2_BASE_URL}/linter/linter_class`;
-const devReqUrl = "http://localhost:8000/v2/linter/linter_class";
+const prodReqUrl = `${V2_BASE_URL}/linter/linter_class/`;
+const devReqUrl = "http://localhost:8000/v2/linter/linter_class/";
 const reqUrl = isDev ? devReqUrl : prodReqUrl;
 
 export async function GET(req: NextRequest) {

@@ -59,12 +59,15 @@ export default async function Page() {
   if (!data) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-slate-900">
-        <p className="text-white">خطا در دریافت اطلاعات یا نیاز به ورود مجدد</p>
+        <div className="flex flex-col gap-5 items-center">
+          <p className="text-white">
+            خطا در دریافت اطلاعات یا نیاز به ورود مجدد
+          </p>
 
-        <Link href={"/"} className="text-white text-xl mt-5 underline">
-          بازگشت به صفحه اصلی
-        </Link>
-
+          <Link href={"/"} className="text-white text-xl underline">
+            بازگشت به صفحه اصلی
+          </Link>
+        </div>
       </div>
     );
   }
