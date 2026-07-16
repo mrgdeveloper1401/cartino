@@ -55,7 +55,7 @@ export default function FlashcardItem({
         {/* Front - سوال */}
         <div
           onClick={() => setIsFlipped(true)}
-          className="absolute w-full h-full backface-hidden cursor-pointer"
+          className="absolute w-full h-full backface-hidden cursor-pointer rotate-y-0"
         >
           <div className="w-full h-full bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 flex flex-col justify-between shadow-lg">
             <div className="flex-1 flex items-center justify-center">
@@ -76,7 +76,7 @@ export default function FlashcardItem({
               onClick={() => setIsFlipped(false)}
               className="flex-1 flex items-center justify-center cursor-pointer"
             >
-              <p className="text-lg text-white text-center">{answer}</p>
+              <strong className="text-lg text-white text-center">{answer}</strong>
             </div>
 
             {/* دکمه‌های پاسخ */}
